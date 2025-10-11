@@ -1,7 +1,15 @@
+using AuctionApp_dissysLabb2.Persistence;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<ProjectDbContext>(
+    options => options.UseMySQL(
+    builder.Configuration.GetConnectionString("ProjectDBConnection")
+));
 
 var app = builder.Build();
 
