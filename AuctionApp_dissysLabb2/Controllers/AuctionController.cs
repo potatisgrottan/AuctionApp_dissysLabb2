@@ -28,7 +28,11 @@ namespace AuctionApp_dissysLabb2.Controllers
         // GET: AuctionController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            Auction auction = _auctionService.GetAuctionDetails(id);
+            if(auction == null) return BadRequest();
+            
+            AuctionDetailsViewModel detailsVM = AuctionDetailsViewModel.FromAuction(auction);
+            return View(detailsVM);
         }
 
         // GET: AuctionController/Create
