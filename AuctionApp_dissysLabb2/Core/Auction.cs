@@ -19,7 +19,7 @@
 
         public List<Bid> Bids { get; set; } = new();
 
-        public Auction() { } // EF kräver parameterlös konstruktor
+        public Auction() { } 
 
         public Auction(string name, string description, User seller, double startingPrice, DateTime endTime)
         {

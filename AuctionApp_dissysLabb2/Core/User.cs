@@ -8,9 +8,10 @@ public class User
     public int Id { get; set; }
     public string Email {get;set;}
     public string Role {get;set;}
+    
 
-
-    public User(string name,  string password, int id, string email, string role)
+    public User(){}
+    public User(int id, string name,  string password, string email, string role)
     {
        Name = name;
        Password = password;

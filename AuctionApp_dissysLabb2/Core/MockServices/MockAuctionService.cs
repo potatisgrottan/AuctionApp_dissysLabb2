@@ -1,0 +1,115 @@
+﻿
+
+using AuctionApp_dissysLabb2.Core;
+using AuctionApp_dissysLabb2.Core.Interfaces;
+using ZstdSharp.Unsafe;
+
+namespace AuctionApp_dissysLabb2.Infrastructure
+{
+    public class MockAuctionService : IAuctionService
+    {
+        // 🔹 Statisk lista som fungerar som "fejk-databas"
+        private static readonly List<User> _users = new()
+        {
+            new User(1, "Anna Andersson", "test123", "anna@test.com", "user"),
+            new User(2, "Björn Berg", "test123", "bjorn@test.com", "user"),
+            new User(3, "Carla Carlsson", "test123", "carla@test.com", "user")
+        };
+
+        private static readonly List<Auction> _auctions = new()
+        {
+            new Auction("Gitarr", "En fin akustisk gitarr", _users[0], 1000, DateTime.Now.AddDays(2))
+            {
+                Id = 1
+            },
+            new Auction("Cykel", "Mountainbike, nästan ny", _users[1], 2000, DateTime.Now.AddHours(6))
+            {
+                Id = 2
+            },
+            new Auction("Bok", "Första upplagan, samlarobjekt", _users[2], 500, DateTime.Now.AddDays(-1))
+            {
+                Id = 3
+            }
+        };
+
+        // Lägg till några exempelbud
+        static MockAuctionService()
+        {
+            _auctions[0].PlaceBid(_users[1], 1200);
+            _auctions[0].PlaceBid(_users[2], 1400);
+
+            _auctions[1].PlaceBid(_users[2], 2100);
+
+            _auctions[2].PlaceBid(_users[0], 700);
+        }
+
+        // 🔹 Hämtar alla auktioner
+        public List<Auction> GetAllAuctions() => _auctions;
+
+        // 🔹 Hämtar aktiva (pågående) auktioner
+        public List<Auction> GetActiveAuctions()
+        {
+            return _auctions.Where(a => !a.IsAuctionOver()).ToList();
+        }
+
+        // 🔹 Hämtar detaljer om en specifik auktion
+        public Auction? GetAuctionDetails(int auctionId)
+        {
+            return _auctions.FirstOrDefault(a => a.Id == auctionId);
+        }
+
+        // 🔹 Skapar en ny auktion
+        public bool CreateAuction(string name, string description, User seller, double startingPrice, DateTime endTime)
+        {
+            int newId = _auctions.Max(a => a.Id) + 1;
+            var auction = new Auction(name, description, seller, startingPrice, endTime)
+            {
+                Id = newId
+            };
+            _auctions.Add(auction);
+            return true;
+        }
+
+        // 🔹 Ändrar beskrivningen (bara om säljaren äger auktionen)
+        public bool EditDescription(int auctionId, string sellerId, string newDescription)
+        {
+            var auction = _auctions.FirstOrDefault(a => a.Id == auctionId);
+            if (auction == null) return false;
+            if (auction.Seller.Id.ToString() != sellerId) return false;
+
+            auction.Description = newDescription;
+            return true;
+        }
+
+        // 🔹 Lägger ett bud
+        public bool PlaceBid(int auctionId, string bidderId, double amount)
+        {
+            var auction = _auctions.FirstOrDefault(a => a.Id == auctionId);
+            var bidder = _users.FirstOrDefault(u => u.Id.ToString() == bidderId);
+
+            if (auction == null || bidder == null) return false;
+
+            return auction.PlaceBid(bidder, amount);
+        }
+
+        // 🔹 Hämtar auktioner där användaren lagt bud
+        public List<Auction> GetAuctionsUserBidOn(string userId)
+        {
+            return _auctions
+                .Where(a => a.Bids.Any(b => b.Bidder.Id.ToString() == userId))
+                .ToList();
+        }
+
+        // 🔹 Hämtar vunna auktioner
+        public List<Auction> GetWonAuctions(string userId)
+        {
+            return _auctions
+                .Where(a => a.HighestBidder != null
+                            && a.HighestBidder.Id.ToString() == userId
+                            && a.IsAuctionOver())
+                .ToList();
+        }
+    }
+}
+
+

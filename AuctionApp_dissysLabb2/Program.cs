@@ -1,3 +1,5 @@
+using AuctionApp_dissysLabb2.Core.Interfaces;
+using AuctionApp_dissysLabb2.Infrastructure;
 using AuctionApp_dissysLabb2.Persistence;
 using Microsoft.EntityFrameworkCore;
 
@@ -5,6 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IAuctionService, MockAuctionService>();
 
 builder.Services.AddDbContext<ProjectDbContext>(
     options => options.UseMySQL(
