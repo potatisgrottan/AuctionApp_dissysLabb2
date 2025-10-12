@@ -10,10 +10,9 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IAuctionService, MockAuctionService>();
 
-builder.Services.AddDbContext<ProjectDbContext>(
-    options => options.UseMySQL(
-    builder.Configuration.GetConnectionString("ProjectDBConnection")
-));
+var cs = builder.Configuration.GetConnectionString("AuctionDb");
+builder.Services.AddDbContext<AuctionDbContext>(
+    options => options.UseMySQL(cs));
 
 var app = builder.Build();
 

@@ -10,7 +10,17 @@ public class AuctionConfiguration: IEntityTypeConfiguration<Auction>
     {
         builder.ToTable("Auctions");
         builder.HasKey(x => x.Id);
+        
         builder.Property(x => x.Name).IsRequired().HasMaxLength(50);
         builder.Property(x => x.Description).IsRequired();
+        builder.Property(x =>x.StartingPrice).IsRequired();
+        builder.Property(x=>x.StartTime).IsRequired();
+        builder.Property(x=>x.EndTime).IsRequired();
+        
+        //Foreign Key
+        builder.HasOne(x => x.Seller).WithMany().HasForeignKey(x => x.SellerId);
+
+        builder.Ignore(x => x.HighestBidAmount);
+        builder.Ignore(x => x.HighestBidder);
     }
 }

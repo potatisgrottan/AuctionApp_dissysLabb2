@@ -16,5 +16,7 @@ public class AuctionDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfiguration(new UserConfiguration());
+        modelBuilder.ApplyConfiguration(new BidConfiguration());
+        modelBuilder.ApplyConfiguration(new AuctionConfiguration());
     }
 }

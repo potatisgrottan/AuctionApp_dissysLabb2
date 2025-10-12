@@ -7,17 +7,23 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.9" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.9">
-        <PrivateAssets>all</PrivateAssets>
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8">
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        <PrivateAssets>all</PrivateAssets>
+      </PackageReference>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.8" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.8">
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        <PrivateAssets>all</PrivateAssets>
       </PackageReference>
       <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
-      <PackageReference Include="MySql.EntityFrameworkCore" Version="9.0.6" />
+      <PackageReference Include="MySql.EntityFrameworkCore" Version="8.0.2" />
     </ItemGroup>
 
     <ItemGroup>
       <Folder Include="Core\Services\" />
+      <Folder Include="Migrations\" />
       <Folder Include="Views\Auction\" />
     </ItemGroup>
 
