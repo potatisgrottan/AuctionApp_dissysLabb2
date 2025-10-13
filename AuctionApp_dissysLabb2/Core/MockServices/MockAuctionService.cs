@@ -11,9 +11,9 @@ namespace AuctionApp_dissysLabb2.Infrastructure
         // 🔹 Statisk lista som fungerar som "fejk-databas"
         private static readonly List<User> _users = new()
         {
-            new User(1, "Anna Andersson", "test123", "anna@test.com", "user"),
-            new User(2, "Björn Berg", "test123", "bjorn@test.com", "user"),
-            new User(3, "Carla Carlsson", "test123", "carla@test.com", "user")
+            new User(1, "Anna Andersson", "anna@test.com"),
+            new User(2, "Björn Berg", "bjorn@test.com"),
+            new User(3, "Carla Carlsson", "carla@test.com")
         };
 
         private static readonly List<Auction> _auctions = new()
@@ -50,6 +50,17 @@ namespace AuctionApp_dissysLabb2.Infrastructure
         public List<Auction> GetActiveAuctions()
         {
             return _auctions.Where(a => !a.IsAuctionOver()).ToList();
+        }
+
+        public List<Auction> GetAllActiveAuctions()
+        {
+             List<Auction> activeAuctions  = _auctions.Where(auction =>  !auction.IsAuctionOver() ).ToList();
+             return activeAuctions;
+        }
+
+        public List<Auction> GetAuctionByItem(string name)
+        {
+            throw new NotImplementedException();
         }
 
         // 🔹 Hämtar detaljer om en specifik auktion
