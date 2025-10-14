@@ -10,21 +10,21 @@ namespace AuctionApp_dissysLabb2.Persistence;
 
 public class MySqlAuctionPersistence : IAuctionPersistence
 {
-    public static IServiceCollection AddMySqlAuctionPersistence(IServiceCollection services, string connectionString)
-    {
-        services.AddDbContext<AuctionDbContext>(options => options.UseMySQL(connectionString).EnableDetailedErrors().EnableSensitiveDataLogging());
-        return services;
-    }
+    
+    private readonly AuctionDbContext _dbContext;
+    public MySqlAuctionPersistence(AuctionDbContext dbContext){_dbContext = dbContext;}
 
 
     public Auction? GetAuctionById(int id)
     {
-        throw new NotImplementedException();
+        return _dbContext.Auctions.Find(id);
     }
 
     public Auction? GetAuctionWithBids(int id)
     {
-        throw new NotImplementedException();
+         return _dbContext.Auctions.Include(a => a.Seller)
+            .Include(a => a.Bids).ThenInclude(b => b.Bidder)
+            .FirstOrDefault(a => a.Id == id);
     }
 
     public List<Auction> GetActiveAuctions()
@@ -34,16 +34,16 @@ public class MySqlAuctionPersistence : IAuctionPersistence
 
     public void AddAuction(Auction auction)
     {
-        throw new NotImplementedException();
+        _dbContext.Auctions.Add(auction);
     }
 
     public void AddBid(Bid bid)
     {
-        throw new NotImplementedException();
+        _dbContext.Bids.Add(bid);
     }
 
     public void SaveChanges()
     {
-        throw new NotImplementedException();
+        _dbContext.SaveChanges();
     }
 }
