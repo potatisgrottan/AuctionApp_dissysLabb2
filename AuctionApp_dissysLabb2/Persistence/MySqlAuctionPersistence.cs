@@ -1,4 +1,6 @@
-﻿using AuctionApp_dissysLabb2.Data;
+﻿using AuctionApp_dissysLabb2.Core;
+using AuctionApp_dissysLabb2.Core.Interfaces;
+using AuctionApp_dissysLabb2.Data;
 using Microsoft.CodeAnalysis.FlowAnalysis;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -6,20 +8,61 @@ using Microsoft.Extensions.DependencyInjection;
 using MySql.EntityFrameworkCore.Extensions;
 namespace AuctionApp_dissysLabb2.Persistence;
 
-public static class MySqlAuctionPersistence
+public class MySqlAuctionPersistence : IAuctionPersistence
 {
-    public static IServiceCollection AddMySqlAuctionPersistence(this IServiceCollection services, string connectionString)
+    public static IServiceCollection AddMySqlAuctionPersistence(IServiceCollection services, string connectionString)
     {
         services.AddDbContext<AuctionDbContext>(options => options.UseMySQL(connectionString).EnableDetailedErrors().EnableSensitiveDataLogging());
         return services;
     }
 
-    public static async Task AddMySqlAuctionPersistence(IServiceProvider services)
+    public List<Auction> GetAllAuctions()
     {
-        using var scope = services.CreateScope();
-        var serviceProvider = scope.ServiceProvider;
-        
-        var auction = serviceProvider.GetRequiredService<AuctionDbContext>();
-        await auction.Database.MigrateAsync();
+        throw new NotImplementedException();
+    }
+
+    public bool CreateAuction(Auction auction)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool EditDescription(Auction auction, string description)
+    {
+        throw new NotImplementedException();
+    }
+
+    public List<Auction> GetActiveAuctions()
+    {
+        throw new NotImplementedException();
+    }
+
+    public List<Auction> GetAllActiveAuctions()
+    {
+        throw new NotImplementedException();
+    }
+
+    public List<Auction> GetAuctionByItem(string name)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Auction? GetAuctionDetails(int auctionId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool PlaceBid(Auction auction, decimal amount)
+    {
+        throw new NotImplementedException();
+    }
+
+    public List<Auction> GetAuctionsUserBidOn(string userId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public List<Auction> GetWonAuctions(string userId)
+    {
+        throw new NotImplementedException();
     }
 }
