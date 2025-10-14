@@ -5,8 +5,6 @@ namespace AuctionApp_dissysLabb2.Models;
 public class BidViewModel
 {
         public string BidderName { get; set; } = string.Empty;
-        
-        public string Email { get; set; } = string.Empty;
         public double Amount { get; set; }
         public DateTime TimePlaced { get; set; }
 
@@ -14,8 +12,7 @@ public class BidViewModel
         {
                 return new BidViewModel()
                 {
-                        BidderName = bid.Bidder.Name,
-                        Email = bid.Bidder.Email,
+                        BidderName = bid.Bidder,
                         Amount = bid.Amount,
                         TimePlaced = bid.TimePlaced,
                 };

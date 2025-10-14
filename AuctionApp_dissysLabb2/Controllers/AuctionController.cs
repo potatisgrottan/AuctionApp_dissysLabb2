@@ -1,10 +1,13 @@
 using AuctionApp_dissysLabb2.Core;
 using AuctionApp_dissysLabb2.Core.Interfaces;
 using AuctionApp_dissysLabb2.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AuctionApp_dissysLabb2.Controllers
 {
+    [Authorize]
     public class AuctionController : Controller
     {
         private IAuctionService _auctionService;
@@ -16,7 +19,7 @@ namespace AuctionApp_dissysLabb2.Controllers
         // GET: AuctionController
         public ActionResult Index()
         {
-            List<Auction> auctions = _auctionService.GetAllAuctions();
+            List<Auction> auctions = _auctionService.GetAllActiveAuctions();
             List<AuctionViewModel> vmAuctions = new List<AuctionViewModel>();
             foreach (Auction auction in auctions)
             {
@@ -38,21 +41,29 @@ namespace AuctionApp_dissysLabb2.Controllers
         // GET: AuctionController/Create
         public ActionResult Create()
         {
-            return View();
+            return View(new AuctionCreateViewModel());
         }
 
         // POST: AuctionController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(AuctionCreateViewModel collection)
         {
             try
             {
+                _auctionService.CreateAuction(
+                    collection.ItemName,
+                    collection.Description,
+                    User.Identity.Name,
+                    collection.StartingPrice,
+                    collection.EndDate);
+                
+                //skicka till db implementeras här
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return View(collection);
             }
         }
 

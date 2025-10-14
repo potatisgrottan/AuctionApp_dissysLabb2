@@ -9,22 +9,33 @@ public class AuctionDetailsViewModel
     [ScaffoldColumn(false)]
     public int Id { get; set; }
 
+    [Display(Name = "Item being auctioned:")]
     public string Name { get; set; } = string.Empty;
+    
+    [Display(Name = "Item description:")] 
     public string Description { get; set; } = string.Empty;
 
+    [Display(Name = "Seller:")]
     public string SellerName { get; set; } = string.Empty;
 
+    [Display(Name = "Start price:")]
     public double StartingPrice { get; set; }
+    
+    [Display(Name = "Highest bid:")]
     public double HighestBidAmount { get; set; }
 
+    [Display(Name = "Highest bidders name:")]
     public string HighestBidderName { get; set; } = string.Empty;
         
+    [Display(Name = "Auction start date:")]
+    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
     public DateTime StartTime { get; set; }
         
-    [DisplayName("auction close time")]
+    [DisplayName("Auction end date:")]
     [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
     public DateTime EndTime { get; set; }
 
+    [ScaffoldColumn(false)]
     public bool IsOver => DateTime.Now > EndTime;
 
     public List<BidViewModel> BidsVM = new();
@@ -36,10 +47,10 @@ public class AuctionDetailsViewModel
             Id = auction.Id,
             Name = auction.Name,
             Description = auction.Description,
-            SellerName = auction.Seller?.Name ?? "no seller",
+            SellerName = auction.Seller,
             StartingPrice = auction.StartingPrice,
             HighestBidAmount = auction.HighestBidAmount,
-            HighestBidderName = auction.HighestBidder?.Name ?? "no bids yet",
+            HighestBidderName = auction.HighestBidder,
             StartTime = auction.StartTime,
             EndTime = auction.EndTime,
         };

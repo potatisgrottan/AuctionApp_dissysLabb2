@@ -3,7 +3,7 @@
 public interface IAuctionService
 {
         List<Auction> GetAllAuctions();
-        bool CreateAuction(string name, string description, User seller, double startingPrice, DateTime endTime);
+        bool CreateAuction(string name, string description,string seller, double startingPrice, DateTime endTime);
         bool EditDescription(int auctionId, string sellerId, string newDescription);
         List<Auction> GetActiveAuctions();  
         
