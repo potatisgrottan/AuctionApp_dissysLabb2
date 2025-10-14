@@ -3,15 +3,15 @@
     public class Bid
     {
         public int Id { get; set; }
-        public User Bidder { get; set; } = null!;
-        public int BidderId { get; set; }
+        public string Bidder { get; set; } = null!;
+       
 
         public double Amount { get; set; }
         public DateTime TimePlaced { get; set; }
 
         public Bid() { }
 
-        public Bid(User bidder, double amount, DateTime timePlaced)
+        public Bid(string bidder, double amount, DateTime timePlaced)
         {
             Bidder = bidder;
             Amount = amount;

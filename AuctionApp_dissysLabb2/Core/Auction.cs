@@ -7,13 +7,13 @@
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
 
-        public User Seller { get; private set; } = null!;
+        public String Seller { get; private set; } = null!;
         public int SellerId { get; set; }
 
         public double StartingPrice { get; set; }
         public double HighestBidAmount { get; private set; }
 
-        public User? HighestBidder { get; private set; }
+        public string HighestBidder { get; private set; }
         public DateTime StartTime { get; private set; }
         public DateTime EndTime { get; set; }
 
@@ -21,7 +21,7 @@
 
         public Auction() { } 
 
-        public Auction(string name, string description, User seller, double startingPrice, DateTime endTime)
+        public Auction(string name, string description, string seller, double startingPrice, DateTime endTime)
         {
             Name = name;
             Description = description;
@@ -37,10 +37,10 @@
             return DateTime.Now > EndTime;
         }
 
-        public bool PlaceBid(User bidder, double amount)
+        public bool PlaceBid(string bidder, double amount)
         {
             if (IsAuctionOver()) return false;
-            if (bidder == null || bidder.Id == Seller.Id) return false;
+            if (bidder == null || bidder.Equals(Seller)) return false;
             if (amount <= HighestBidAmount) return false;
 
             HighestBidAmount = amount;
