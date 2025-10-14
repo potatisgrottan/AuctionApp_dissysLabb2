@@ -16,17 +16,13 @@ public class MySqlAuctionPersistence : IAuctionPersistence
         return services;
     }
 
-    public List<Auction> GetAllAuctions()
+
+    public Auction? GetAuctionById(int id)
     {
         throw new NotImplementedException();
     }
 
-    public bool CreateAuction(Auction auction)
-    {
-        throw new NotImplementedException();
-    }
-
-    public bool EditDescription(Auction auction, string description)
+    public Auction? GetAuctionWithBids(int id)
     {
         throw new NotImplementedException();
     }
@@ -36,32 +32,17 @@ public class MySqlAuctionPersistence : IAuctionPersistence
         throw new NotImplementedException();
     }
 
-    public List<Auction> GetAllActiveAuctions()
+    public void AddAuction(Auction auction)
     {
         throw new NotImplementedException();
     }
 
-    public List<Auction> GetAuctionByItem(string name)
+    public void AddBid(Bid bid)
     {
         throw new NotImplementedException();
     }
 
-    public Auction? GetAuctionDetails(int auctionId)
-    {
-        throw new NotImplementedException();
-    }
-
-    public bool PlaceBid(Auction auction, decimal amount)
-    {
-        throw new NotImplementedException();
-    }
-
-    public List<Auction> GetAuctionsUserBidOn(string userId)
-    {
-        throw new NotImplementedException();
-    }
-
-    public List<Auction> GetWonAuctions(string userId)
+    public void SaveChanges()
     {
         throw new NotImplementedException();
     }
