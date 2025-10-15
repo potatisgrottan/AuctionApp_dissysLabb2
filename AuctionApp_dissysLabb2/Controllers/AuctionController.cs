@@ -70,16 +70,39 @@ namespace AuctionApp_dissysLabb2.Controllers
         // GET: AuctionController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var auction = _auctionService.GetAuctionDetails(id);
+            if (auction == null)
+                return NotFound();
+            if (!auction.Seller.Equals(User.Identity.Name))
+            {
+                return Forbid();
+            }
+            
+            var auctionEditVM = new AuctionEditViewModel
+            {
+                Id = auction.Id,
+                Name = auction.Name,
+                Description = auction.Description
+            };
+            
+            return View(auctionEditVM);
+            
+            
         }
 
         // POST: AuctionController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, AuctionEditViewModel auctionEditVM)
         {
+            if (!ModelState.IsValid)
+                return View(auctionEditVM);
             try
-            {
+            { 
+                _auctionService.EditDescription(
+                    auctionEditVM.Id, 
+                    User.Identity!.Name!,
+                    auctionEditVM.Description);
                 return RedirectToAction(nameof(Index));
             }
             catch

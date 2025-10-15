@@ -48,8 +48,7 @@ namespace AuctionApp_dissysLabb2.Infrastructure
             var auction = MockDataStore.Auctions.FirstOrDefault(a => a.Id == auctionId);
             if (auction == null || auction.IsAuctionOver()) return false;
             if(!auction.Seller.Equals(seller)) return false;
-           
-
+            
             auction.Description = newDescription;
             return true;
         }
