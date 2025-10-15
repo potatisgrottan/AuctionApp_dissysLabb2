@@ -4,10 +4,9 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Auction Details</h1>
 
 <div>
-    <h4>AuctionDetailsViewModel</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -61,7 +60,7 @@
     </dl>
 </div>
 <div>
-    <h3>Bids</h3>
+    <h3>Bid history</h3>
 
     @if (Model is { BidsVM: not null, IsOver: false } && Model.BidsVM.Any())
     {

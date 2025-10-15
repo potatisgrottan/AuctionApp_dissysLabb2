@@ -43,16 +43,21 @@ namespace AuctionApp_dissysLabb2.Controllers
         public ActionResult Create(BidCreateViewModel collection)
         {
             
+            
             try
             {
-                _bidService.PlaceBid(collection.AuctionId,User.Identity.Name, collection.Amount);
-                
+                if (!_bidService.PlaceBid(collection.AuctionId, User.Identity.Name, collection.Amount))
+                {
+                    ModelState.AddModelError(string.Empty, "Your bid is too low. Please enter a higher amount.");
+                    return View("Create", collection);
+                }
+
                 //db call här
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return View("Create",collection);
             }
         }
 

@@ -51,6 +51,11 @@ namespace AuctionApp_dissysLabb2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(AuctionCreateViewModel collection)
         {
+            if (DateTime.Now > collection.EndDate)
+            {
+                ModelState.AddModelError("EndDate", "Auction end date is in the past");
+                return View("Create", collection);
+            }
             try
             {
                 _auctionService.CreateAuction(
@@ -59,6 +64,7 @@ namespace AuctionApp_dissysLabb2.Controllers
                     User.Identity.Name,
                     collection.StartingPrice,
                     collection.EndDate);
+                
                 
                 //skicka till db implementeras här
                 return RedirectToAction(nameof(Index));

@@ -10,6 +10,7 @@ public class MockBidService:IBidService
     {
         var auction = MockDataStore.Auctions.FirstOrDefault(a => a.Id == auctionId);
         if (auction == null) return false;
+        if(auction.HighestBidAmount>amount) return false;
 
         bool success = auction.PlaceBid(bidderId, amount);
         if (!success) return false;
