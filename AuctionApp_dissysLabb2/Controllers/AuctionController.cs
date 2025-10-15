@@ -19,7 +19,7 @@ namespace AuctionApp_dissysLabb2.Controllers
         // GET: AuctionController
         public ActionResult Index()
         {
-            List<Auction> auctions = _auctionService.GetAllActiveAuctions();
+            List<Auction> auctions = _auctionService.GetActiveAuctions();
             List<AuctionViewModel> vmAuctions = new List<AuctionViewModel>();
             foreach (Auction auction in auctions)
             {

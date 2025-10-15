@@ -3,16 +3,18 @@
     public class Bid
     {
         public int Id { get; set; }
+        
+       public int AuctionId { get; set; }
         public string Bidder { get; set; } = null!;
-       
-
+        
         public double Amount { get; set; }
         public DateTime TimePlaced { get; set; }
 
         public Bid() { }
 
-        public Bid(string bidder, double amount, DateTime timePlaced)
+        public Bid( int auctionId,string bidder, double amount, DateTime timePlaced)
         {
+            AuctionId = auctionId;
             Bidder = bidder;
             Amount = amount;
             TimePlaced = timePlaced;

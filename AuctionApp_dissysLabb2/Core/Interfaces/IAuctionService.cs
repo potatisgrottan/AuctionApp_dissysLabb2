@@ -7,11 +7,10 @@ public interface IAuctionService
         bool EditDescription(int auctionId, string sellerId, string newDescription);
         List<Auction> GetActiveAuctions();  
         
-        List<Auction> GetAllActiveAuctions();
         List<Auction> GetAuctionByItem(string name);
       
         Auction? GetAuctionDetails(int auctionId);          
-        bool PlaceBid(int auctionId, string bidderId, double amount);
+        //bool PlaceBid(int auctionId, string bidderId, double amount);
         List<Auction> GetAuctionsUserBidOn(string userId);     
         List<Auction> GetWonAuctions(string userId);        
 }

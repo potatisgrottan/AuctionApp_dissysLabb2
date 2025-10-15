@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IAuctionService, MockAuctionService>();
-
+builder.Services.AddScoped<IBidService, MockBidService>();
 var cs = builder.Configuration.GetConnectionString("AuctionDb");
 builder.Services.AddDbContext<AuctionDbContext>(
     options => options.UseMySQL(cs));
