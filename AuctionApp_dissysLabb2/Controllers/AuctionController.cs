@@ -25,6 +25,7 @@ namespace AuctionApp_dissysLabb2.Controllers
             {
                 vmAuctions.Add(AuctionViewModel.FromAuction(auction));
             }
+            vmAuctions = vmAuctions.OrderBy(a => a.EndTime).ToList();
             return View(vmAuctions);
         }
 
@@ -35,6 +36,7 @@ namespace AuctionApp_dissysLabb2.Controllers
             if(auction == null) return BadRequest();
             
             AuctionDetailsViewModel detailsVM = AuctionDetailsViewModel.FromAuction(auction);
+            
             return View(detailsVM);
         }
 

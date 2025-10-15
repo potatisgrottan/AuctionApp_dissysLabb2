@@ -28,17 +28,17 @@ public class AuctionDetailsViewModel
     public string HighestBidderName { get; set; } = string.Empty;
         
     [Display(Name = "Auction start date:")]
-    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy HH:mm}")]
     public DateTime StartTime { get; set; }
         
     [DisplayName("Auction end date:")]
-    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy HH:mm}")]
     public DateTime EndTime { get; set; }
 
     [ScaffoldColumn(false)]
     public bool IsOver => DateTime.Now > EndTime;
 
-    public List<BidViewModel> BidsVM = new();
+    public List<BidViewModel> BidsVM { get; set; } = new();
 
     public static AuctionDetailsViewModel FromAuction(Auction auction)
     {
@@ -58,6 +58,7 @@ public class AuctionDetailsViewModel
         {
             detailsVM.BidsVM.Add(BidViewModel.FromBid(bid));
         }
+        detailsVM.BidsVM = detailsVM.BidsVM.OrderByDescending(b => b.Amount).ToList();
         return detailsVM;
     }
 

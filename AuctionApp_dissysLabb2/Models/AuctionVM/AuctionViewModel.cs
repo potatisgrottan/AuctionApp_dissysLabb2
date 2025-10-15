@@ -33,7 +33,7 @@ public class AuctionViewModel
         public DateTime StartTime { get; set; }
         
         [DisplayName("End Date")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy HH:mm}")]
         public DateTime EndTime { get; set; }
 
         public bool IsOver => DateTime.Now > EndTime;

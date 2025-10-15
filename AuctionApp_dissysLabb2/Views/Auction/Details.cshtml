@@ -61,6 +61,40 @@
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <h3>Bids</h3>
+
+    @if (Model is { BidsVM: not null, IsOver: false } && Model.BidsVM.Any())
+    {
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Bidder</th>
+                <th>Amount</th>
+                <th>Time Placed</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var bid in Model.BidsVM)
+            {
+                <tr>
+                    <td>@bid.BidderName</td>
+                    <td>@bid.Amount.ToString("C")</td>
+                    <td>@bid.TimePlaced.ToString("dd/MM/yyyy HH:mm")</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No bids placed yet.</p>
+    }
+</div>
+<div>
+    
+    @if (User.Identity.Name.Equals(Model.SellerName) && User.Identity.Name != null)
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
+    }
     <a asp-action="Index">Back to List</a>
 </div>
