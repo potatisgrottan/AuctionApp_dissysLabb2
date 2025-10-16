@@ -15,6 +15,6 @@ public class BidConfiguration:IEntityTypeConfiguration<Bid>
         builder.Property(x => x.TimePlaced).IsRequired();
         
         //Foreign Key
-        builder.HasOne(x => x.Bidder).WithMany().HasForeignKey(x => x.Bidder);
+        builder.HasOne(x => x.Bidder).WithMany().HasForeignKey("BidderId");
     }
 }
