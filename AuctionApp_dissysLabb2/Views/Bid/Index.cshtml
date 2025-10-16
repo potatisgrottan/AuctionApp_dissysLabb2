@@ -5,12 +5,16 @@
 }
 
 <h1>My Bids</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
+@if (!Model.Any())
+{
+    <div class="text-center mt-5">
+        <h3>No bids made yet.</h3>
+    </div>
+}
+else
+{
+    <table class="table">
+        <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.BidderName)
@@ -23,24 +27,25 @@
             </th>
             <th></th>
         </tr>
-    </thead>
-    <tbody>
-  
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.BidderName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Amount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TimePlaced)
-            </td>
-            <td>
-            </td>
-        </tr>
-    }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BidderName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimePlaced)
+                </td>
+                <td>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

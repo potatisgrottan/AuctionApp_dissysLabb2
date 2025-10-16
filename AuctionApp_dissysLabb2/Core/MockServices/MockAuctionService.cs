@@ -58,7 +58,8 @@ namespace AuctionApp_dissysLabb2.Infrastructure
         public List<Auction> GetAuctionsUserBidOn(string user)
         {
             return MockDataStore.Auctions
-                .Where(a => a.Bids.Any(b => b.Bidder.Equals(user)))
+                .Where( a=> !a.IsAuctionOver() && 
+                             a.Bids.Any(b => b.Bidder.Equals(user)))
                 .ToList();
         }
 

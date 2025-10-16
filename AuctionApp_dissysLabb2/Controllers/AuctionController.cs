@@ -139,5 +139,48 @@ namespace AuctionApp_dissysLabb2.Controllers
                 return View();
             }
         }
+        
+        public IActionResult MyActiveBids()
+        {
+            var userName = User.Identity?.Name;
+            if (string.IsNullOrEmpty(userName))
+                return RedirectToAction("Index", "Home");
+
+            var auctions = _auctionService.GetAuctionsUserBidOn(userName);
+            var vmList = auctions.Select(a => AuctionsWithMyActiveBidsViewModel.FromAuction(a, userName))
+                .OrderBy(a => a.EndTime)
+                .ToList();;
+
+            return View(vmList);
+        }
+
+        public IActionResult MyWonAuctions()
+        {
+            try
+            {
+                var userName = User.Identity?.Name;
+                if (string.IsNullOrEmpty(userName))
+                    return RedirectToAction("Index", "Home");
+
+                var auctions = _auctionService.GetAllAuctions()
+                    .Where(a => a.HighestBidder != null 
+                                && a.HighestBidder.Equals(userName) 
+                                && a.EndTime <= DateTime.Now)
+                    .ToList();
+
+                var wonVM = auctions
+                    .Select(AuctionsWonViewModel.FromAuction)
+                    .OrderBy(a => a.EndTime)
+                    .ToList();
+
+                return View(wonVM);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+
     }
 }
