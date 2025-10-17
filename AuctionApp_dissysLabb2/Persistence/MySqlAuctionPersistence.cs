@@ -29,7 +29,8 @@ public class MySqlAuctionPersistence : IAuctionPersistence
     public List<Auction> GetAuctionWithUserBid(string user)
     {
         return _dbContext.Auctions.Include(a => a.Bids)
-            .Where(a => a.Bids.Any(b => b.Bidder == user))
+            .Where(a => a.Bids.Any(b => b.Bidder == user) && a.EndTime > DateTime.Now)
+            .OrderBy(a => a.EndTime)
             .ToList();
     }
 
@@ -38,6 +39,7 @@ public class MySqlAuctionPersistence : IAuctionPersistence
         return _dbContext.Auctions
             .Include(a => a.Bids)
             .Where(a => a.EndTime > DateTime.Now)
+            .OrderBy(a => a.EndTime)
             .ToList();
     }
     

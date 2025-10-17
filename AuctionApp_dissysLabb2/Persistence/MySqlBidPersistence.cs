@@ -24,7 +24,9 @@ public class MySqlBidPersistence : IBidPersistence
 
     public List<Bid> GetByAuction(int auctionId)
     {
-        return _auctionDbContext.Bids.Where(b => EF.Property<int>(b, "AuctionId") == auctionId).ToList();
+        return _auctionDbContext.Bids.Where(b => EF.Property<int>(b, "AuctionId") == auctionId)
+            .OrderByDescending(b => b.Amount)
+            .ToList();
     }
 
     public void SaveChanges()
