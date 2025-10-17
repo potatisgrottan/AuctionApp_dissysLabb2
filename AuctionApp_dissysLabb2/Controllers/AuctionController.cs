@@ -150,6 +150,7 @@ namespace AuctionApp_dissysLabb2.Controllers
 
             var auctions = _auctionService.GetAuctionsUserBidOn(userName);
             var vmList = auctions.Select(a => AuctionsWithMyActiveBidsViewModel.FromAuction(a, userName))
+                .Where(a => !a.IsOver)
                 .OrderBy(a => a.EndTime)
                 .ToList();;
 
