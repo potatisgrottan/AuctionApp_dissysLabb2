@@ -3,6 +3,7 @@ using System;
 using AuctionApp_dissysLabb2.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AuctionApp_dissysLabb2.Migrations
 {
     [DbContext(typeof(AuctionDbContext))]
-    partial class AuctionDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251017114751_AddmissingColumns")]
+    partial class AddmissingColumns
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,12 +34,6 @@ namespace AuctionApp_dissysLabb2.Migrations
 
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime(6)");
-
-                    b.Property<double>("HighestBidAmount")
-                        .HasColumnType("double");
-
-                    b.Property<string>("HighestBidder")
-                        .HasColumnType("longtext");
 
                     b.Property<string>("Name")
                         .IsRequired()

@@ -6,14 +6,12 @@
 
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
-
         public string Seller { get; private set; } = null!;
-        public int SellerId { get; set; }
-
         public double StartingPrice { get; set; }
         public double HighestBidAmount { get; private set; }
 
-        public string HighestBidder { get; private set; }
+        public string? HighestBidder { get; private set; }
+        
         public DateTime StartTime { get; private set; }
         public DateTime EndTime { get; set; }
 

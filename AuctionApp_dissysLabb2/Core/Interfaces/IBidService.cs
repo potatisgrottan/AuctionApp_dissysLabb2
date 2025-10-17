@@ -3,7 +3,7 @@
 public interface IBidService
 { 
         bool PlaceBid(int auctionId, string bidderId, double amount);
-        List<Bid> GetBidsForAuction(int auctionId);
+        
         List<Bid> GetBidsForBidder(string bidder);
 
 }

@@ -17,19 +17,35 @@ public class MySqlAuctionPersistence : IAuctionPersistence
 
     public Auction? GetAuctionById(int id)
     {
-        return _dbContext.Auctions.Find(id);
+        return _dbContext.Auctions
+            .Include(a => a.Bids).FirstOrDefault(a => a.Id == id);
     }
 
-    public Auction? GetAuctionWithBids(int id)
+    public List<Auction> GetWonAuctions(string user)
     {
-         return _dbContext.Auctions.Include(a => a.Seller)
-            .Include(a => a.Bids).ThenInclude(b => b.Bidder)
-            .FirstOrDefault(a => a.Id == id);
+        return _dbContext.Auctions.Where(a => a.HighestBidder == user && a.IsAuctionOver()).ToList();
+    }   
+
+    public List<Auction> GetAuctionWithUserBid(string user)
+    {
+        return _dbContext.Auctions.Include(a => a.Bids)
+            .Where(a => a.Bids.Any(b => b.Bidder == user))
+            .ToList();
     }
 
     public List<Auction> GetActiveAuctions()
     {
-        throw new NotImplementedException();
+        return _dbContext.Auctions
+            .Include(a => a.Bids)
+            .Where(a => a.EndTime > DateTime.Now)
+            .ToList();
+    }
+    
+    public List<Auction> GetAllAuctions()
+    {
+        return _dbContext.Auctions
+            .Include(a => a.Bids)
+            .ToList();
     }
 
     public void AddAuction(Auction auction)

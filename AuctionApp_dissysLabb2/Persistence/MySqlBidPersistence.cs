@@ -17,14 +17,14 @@ public class MySqlBidPersistence : IBidPersistence
         _auctionDbContext.Bids.Add(bid);
     }
 
-    public List<Bid> GetByBidder(int bidderId)
+    public List<Bid> GetByBidder(string bidder)
     {
-        return _auctionDbContext.Bids.Where(b => EF.Property<int>(b, "BidderId") == bidderId).Include(b => b.Bidder).ToList();
+        return _auctionDbContext.Bids.Where(b => EF.Property<string>(b, "Bidder") == bidder).ToList();
     }
 
     public List<Bid> GetByAuction(int auctionId)
     {
-        return _auctionDbContext.Bids.Where(b => EF.Property<int>(b, "AuctionId") == auctionId).Include(b => b.Bidder).ToList();
+        return _auctionDbContext.Bids.Where(b => EF.Property<int>(b, "AuctionId") == auctionId).ToList();
     }
 
     public void SaveChanges()

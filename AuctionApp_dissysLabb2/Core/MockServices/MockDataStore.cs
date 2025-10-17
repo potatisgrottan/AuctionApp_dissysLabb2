@@ -4,12 +4,6 @@ namespace AuctionApp_dissysLabb2.Infrastructure
 {
     public static class MockDataStore
     {
-        public static List<User> Users { get; } = new()
-        {
-            new User(1, "Anna Andersson", "anna@test.com"),
-            new User(2, "Björn Berg", "bjorn@test.com"),
-            new User(3, "Carla Carlsson", "carla@test.com")
-        };
 
         public static List<Auction> Auctions { get; } = new()
         {

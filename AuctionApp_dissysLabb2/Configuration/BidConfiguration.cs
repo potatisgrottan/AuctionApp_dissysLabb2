@@ -13,8 +13,7 @@ public class BidConfiguration:IEntityTypeConfiguration<Bid>
 
         builder.Property(x => x.Amount).IsRequired();
         builder.Property(x => x.TimePlaced).IsRequired();
+        builder.Property(x=>x.Bidder).IsRequired();
         
-        //Foreign Key
-        builder.HasOne(x => x.Bidder).WithMany().HasForeignKey("BidderId");
     }
 }

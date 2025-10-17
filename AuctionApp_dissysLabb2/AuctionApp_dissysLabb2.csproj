@@ -24,7 +24,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Core\Services\" />
       <Folder Include="Migrations\" />
       <Folder Include="Views\Auction\" />
       <Folder Include="Views\Bid\" />

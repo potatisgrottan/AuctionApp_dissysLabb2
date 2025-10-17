@@ -1,5 +1,6 @@
 using AuctionApp_dissysLabb2.Areas.Identity.Data;
 using AuctionApp_dissysLabb2.Core.Interfaces;
+using AuctionApp_dissysLabb2.Core.Services;
 using AuctionApp_dissysLabb2.Infrastructure;
 using AuctionApp_dissysLabb2.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -11,8 +12,17 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddScoped<IAuctionService, MockAuctionService>();
-builder.Services.AddScoped<IBidService, MockBidService>();
+
+builder.Services.AddScoped<IAuctionPersistence, MySqlAuctionPersistence>();
+builder.Services.AddScoped<IBidPersistence, MySqlBidPersistence>();
+builder.Services.AddScoped<IAuctionService, AuctionService>();
+builder.Services.AddScoped<IBidService, BidService>();
+
+//builder.Services.AddScoped<IAuctionService, MockAuctionService>();
+//builder.Services.AddScoped<IBidService, MockBidService>();
+
+
+
 var cs = builder.Configuration.GetConnectionString("AuctionDb");
 builder.Services.AddDbContext<AuctionDbContext>(
     options => options.UseMySQL(cs));

@@ -3,9 +3,12 @@
 public interface IAuctionPersistence
 {
     Auction? GetAuctionById(int id);
-    Auction? GetAuctionWithBids(int id);
+    List<Auction> GetWonAuctions(string user);
     List<Auction> GetActiveAuctions();
+    List<Auction> GetAllAuctions();
+    
+    List<Auction> GetAuctionWithUserBid(string user);
     void AddAuction(Auction auction);
-    void AddBid(Bid bid);
+    
     void SaveChanges();
 }

@@ -16,11 +16,9 @@ public class AuctionConfiguration: IEntityTypeConfiguration<Auction>
         builder.Property(x =>x.StartingPrice).IsRequired();
         builder.Property(x=>x.StartTime).IsRequired();
         builder.Property(x=>x.EndTime).IsRequired();
-        
-        //Foreign Key
-        builder.HasOne(x => x.Seller).WithMany().HasForeignKey(x => x.SellerId);
+        builder.Property(a => a.Seller).IsRequired();
 
-        builder.Ignore(x => x.HighestBidAmount);
-        builder.Ignore(x => x.HighestBidder);
+        builder.Property(x => x.HighestBidAmount).IsRequired();
+        builder.Property(x => x.HighestBidder);
     }
 }

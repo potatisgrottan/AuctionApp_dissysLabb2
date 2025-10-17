@@ -18,10 +18,10 @@ namespace AuctionApp_dissysLabb2.Infrastructure
         }
         
 
-        public List<Auction> GetAuctionByItem(string name)
+       /* public List<Auction> GetAuctionByItem(string name)
         {
             throw new NotImplementedException();
-        }
+        }*/
 
         // 🔹 Hämtar detaljer om en specifik auktion
         public Auction? GetAuctionDetails(int auctionId)
