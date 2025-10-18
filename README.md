@@ -3,6 +3,7 @@
 
  Medlemmar: 
  Olof Olheim : oolheim@kth.se,
- Leo Au 
+ Leo Au : leoau@kth.se
+
 
 
